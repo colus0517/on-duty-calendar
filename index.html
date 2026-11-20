@@ -6,18 +6,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     :root {
+      /* 預設為明亮清爽風格 (Light Mode) */
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --border-color: #cbd5e1;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --primary: #0284c7;
+      --primary-hover: #0369a1;
+      --holiday-bg: #fef2f2;
+      --holiday-border: #fca5a5;
+      --holiday-text: #dc2626;
+      --swap-bg: #ea580c;
+      --swap-text: #ffffff;
+      --cell-hover: #f1f5f9;
+      --today-border: #0284c7;
+    }
+
+    /* 深色戰情室風格 (Dark Mode - 點擊右上角可自由切換) */
+    body.dark-mode {
       --bg-color: #0f172a;
       --card-bg: #1e293b;
       --border-color: #334155;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
       --primary: #38bdf8;
-      --holiday-bg: rgba(239, 68, 68, 0.15);
+      --primary-hover: #0284c7;
+      --holiday-bg: rgba(239, 68, 68, 0.18);
       --holiday-border: #ef4444;
       --holiday-text: #fca5a5;
       --swap-bg: #f97316;
       --swap-text: #ffffff;
       --cell-hover: #273549;
+      --today-border: #38bdf8;
     }
 
     * { box-sizing: border-box; }
@@ -30,6 +51,7 @@
       background: var(--bg-color);
       color: var(--text-main);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", sans-serif;
+      transition: background-color 0.25s, color 0.25s;
     }
 
     .dashboard-container {
@@ -61,27 +83,34 @@
       font-size: 26px;
       font-weight: 700;
       letter-spacing: 0.5px;
-      color: #ffffff;
+      color: var(--text-main);
     }
 
     .badge-sync {
       font-size: 14px;
       padding: 4px 12px;
       border-radius: 20px;
-      background: rgba(56, 189, 248, 0.15);
+      background: rgba(2, 132, 199, 0.1);
       color: var(--primary);
-      border: 1px solid rgba(56, 189, 248, 0.3);
+      border: 1px solid rgba(2, 132, 199, 0.3);
+      font-weight: 600;
       transition: all 0.3s ease;
     }
     .badge-sync.online {
-      background: rgba(34, 197, 94, 0.2);
-      color: #4ade80;
+      background: rgba(34, 197, 94, 0.15);
+      color: #16a34a;
       border-color: rgba(34, 197, 94, 0.4);
     }
+    body.dark-mode .badge-sync.online {
+      color: #4ade80;
+    }
     .badge-sync.offline {
-      background: rgba(239, 68, 68, 0.2);
-      color: #f87171;
+      background: rgba(239, 68, 68, 0.15);
+      color: #dc2626;
       border-color: rgba(239, 68, 68, 0.4);
+    }
+    body.dark-mode .badge-sync.offline {
+      color: #f87171;
     }
 
     .nav-controls {
@@ -95,7 +124,7 @@
       border: 1px solid var(--border-color);
       color: var(--text-main);
       padding: 8px 16px;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
       border-radius: 6px;
       cursor: pointer;
@@ -103,13 +132,23 @@
     }
 
     .btn:hover:not(:disabled) {
-      background: #334155;
+      background: var(--cell-hover);
       border-color: var(--primary);
     }
 
     .btn:disabled {
       opacity: 0.35;
       cursor: not-allowed;
+    }
+
+    .btn-theme {
+      border: 1px solid var(--border-color);
+      background: var(--card-bg);
+      color: var(--text-main);
+      font-size: 14px;
+      padding: 7px 14px;
+      border-radius: 20px;
+      cursor: pointer;
     }
 
     .current-month-display {
@@ -133,7 +172,7 @@
       color: var(--text-muted);
     }
     .calendar-weekdays div.weekend {
-      color: #f87171;
+      color: #ef4444;
     }
 
     /* 月曆主表格網格 */
@@ -166,7 +205,7 @@
 
     .calendar-day.empty {
       background: transparent;
-      border: 1px dashed rgba(51, 65, 85, 0.4);
+      border: 1px dashed rgba(148, 163, 184, 0.4);
       cursor: default;
     }
 
@@ -176,7 +215,7 @@
     }
 
     .calendar-day.is-today {
-      box-shadow: inset 0 0 0 2px var(--primary);
+      box-shadow: inset 0 0 0 2px var(--today-border);
     }
 
     /* 日期頂部列 */
@@ -189,11 +228,11 @@
     .day-number {
       font-size: 20px;
       font-weight: 800;
-      color: #ffffff;
-    }
+      color: var(--text-main);
+   }
 
     .is-holiday .day-number {
-      color: #fca5a5;
+      color: var(--holiday-text);
     }
 
     .holiday-tag {
@@ -201,20 +240,25 @@
       font-weight: 700;
       padding: 2px 6px;
       border-radius: 4px;
-      background: rgba(239, 68, 68, 0.25);
+      background: rgba(239, 68, 68, 0.15);
       color: var(--holiday-text);
       max-width: 65%;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      border: 1px solid rgba(239, 68, 68, 0.3);
     }
 
     .workday-makeup-tag {
       font-size: 12px;
       font-weight: 700;
-     padding: 2px 6px;
+      padding: 2px 6px;
       border-radius: 4px;
-      background: rgba(34, 197, 94, 0.2);
+      background: rgba(34, 197, 94, 0.15);
+      color: #16a34a;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+    body.dark-mode .workday-makeup-tag {
       color: #86efac;
     }
 
@@ -229,7 +273,7 @@
     .person-name {
       font-size: 20px;
       font-weight: 800;
-      color: #ffffff;
+      color: var(--text-main);
       display: flex;
       align-items: center;
       gap: 8px;
@@ -270,20 +314,21 @@
       display: none;
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(3px);
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(2px);
       z-index: 1000;
       align-items: center;
       justify-content: center;
     }
 
     .modal {
-      background: #1e293b;
+      background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 12px;
       width: 480px;
       padding: 24px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      color: var(--text-main);
     }
 
     .modal h2 { margin-top: 0; font-size: 20px; color: var(--primary); }
@@ -291,12 +336,16 @@
     .form-group label { display: block; font-size: 14px; margin-bottom: 6px; color: var(--text-muted); }
     .form-group input, .form-group textarea {
       width: 100%;
-      background: #0f172a;
+      background: var(--bg-color);
       border: 1px solid var(--border-color);
-      color: #fff;
+      color: var(--text-main);
       padding: 10px;
       border-radius: 6px;
       font-size: 15px;
+      outline: none;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: var(--primary);
     }
     .form-checkbox {
       display: flex;
@@ -327,7 +376,8 @@
       <button class="btn" id="prevMonthBtn">◀ 上一月</button>
       <div class="current-month-display" id="monthDisplay">2026 年 10 月</div>
       <button class="btn" id="nextMonthBtn">下一月 ▶</button>
-      <button class="btn" style="background:#0284c7; margin-left:12px;" id="configRotationBtn">⚙️ 重設排班輪替</button>
+      <button class="btn" style="background:var(--primary); color:#ffffff; border-color:var(--primary);" id="configRotationBtn">⚙️ 重設排班輪替</button>
+      <button class="btn-theme" id="themeToggleBtn">🌙 深色模式</button>
     </div>
   </header>
 
@@ -366,7 +416,7 @@
     </div>
     <div class="modal-actions">
       <button class="btn" onclick="closeModal()">取消</button>
-      <button class="btn" style="background:#22c55e;" onclick="saveDayData()">儲存更新</button>
+      <button class="btn" style="background:#16a34a; color:#fff; border-color:#16a34a;" onclick="saveDayData()">儲存更新</button>
     </div>
   </div>
 </div>
@@ -392,7 +442,7 @@
     </div>
     <div class="modal-actions">
       <button class="btn" onclick="closeRotationModal()">取消</button>
-      <button class="btn" style="background:#0284c7;" onclick="saveRotationRule()">確認生效並向後計算</button>
+      <button class="btn" style="background:var(--primary); color:#fff; border-color:var(--primary);" onclick="saveRotationRule()">確認生效並向後計算</button>
     </div>
   </div>
 </div>
@@ -417,7 +467,26 @@
   const rotationRef = db.ref("duty_rotation_anchors");
 
   // ==========================================
-  // 2. 嚴格邊界設定：2026/10 之前不要有資料
+  // 2. 主題切換邏輯 (支援亮色白底與戰情室深色)
+  // ==========================================
+  const themeToggleBtn = document.getElementById("themeToggleBtn");
+  themeToggleBtn.onclick = () => {
+    document.body.classList.toggle("dark-mode");
+    const isDark = document.body.classList.contains("dark-mode");
+    themeToggleBtn.innerText = isDark ? "☀️ 亮色模式" : "🌙 深色模式";
+    localStorage.setItem("duty_theme", isDark ? "dark" : "light");
+  };
+
+  // 讀取先前儲存之主題偏好（預設為清爽亮色模式）
+  if (localStorage.getItem("duty_theme") === "dark") {
+    document.body.classList.add("dark-mode");
+    themeToggleBtn.innerText = "☀️ 亮色模式";
+  } else {
+    themeToggleBtn.innerText = "🌙 深色模式";
+  }
+
+  // ==========================================
+  // 3. 嚴格邊界設定：2026/10 之前不要有資料
   // ==========================================
   const MIN_YEAR = 2026;
   const MIN_MONTH = 9; // 0 代表 1 月，9 代表 10 月
@@ -431,7 +500,7 @@
   let activeEditDate = null;
 
   // ==========================================
-  // 3. 即時連線狀態偵測監聽器 (.info/connected)
+  // 4. 即時連線狀態偵測監聽器 (.info/connected)
   // ==========================================
   const connectedRef = db.ref(".info/connected");
   const syncStatusEl = document.getElementById("syncStatus");
@@ -447,14 +516,14 @@
   });
 
   // ==========================================
-  // 4. 自動向政府開放行事曆抓取國定假日 (如 2/4~2/10 春節連假)
+  // 5. 自動向政府開放行事曆抓取國定假日 (如 2/4~2/10 春節連假)
   // ==========================================
   async function fetchHolidays(year) {
     if (holidaysCache[year]) return;
     try {
       const res = await fetch(`https://cdn.jsdelivr.net/gh/ruyut/TaiwanCalendar/data/${year}.json`);
       if (res.ok) {
-       const list = await res.json();
+        const list = await res.json();
         list.forEach(i => {
           const d = `${i.date.slice(0,4)}-${i.date.slice(4,6)}-${i.date.slice(6,8)}`;
           holidaysCache[d] = { isHoliday: i.isHoliday, desc: i.description };
@@ -466,7 +535,7 @@
   }
 
   // ==========================================
-  // 5. 計算指定日期依輪替規則應排之人員
+  // 6. 計算指定日期依輪替規則應排之人員
   // ==========================================
   function computeRotatedPerson(dateStr) {
     if (rotationAnchors.length === 0) return "";
@@ -485,7 +554,7 @@
   }
 
   // ==========================================
-  // 6. 渲染月曆 (1920x1080 滿版單頁無捲動)
+  // 7. 渲染月曆 (1920x1080 滿版單頁無捲動)
   // ==========================================
   async function renderCalendar() {
     await fetchHolidays(currentYear);
@@ -499,7 +568,7 @@
 
     document.getElementById("monthDisplay").innerText = `${currentYear} 年 ${currentMonth + 1} 月`;
 
-    const grid = document.getElementById("calendarGrid");
+   const grid = document.getElementById("calendarGrid");
     grid.innerHTML = "";
 
     const firstDayIndex = new Date(currentYear, currentMonth, 1).getDay();
@@ -565,7 +634,7 @@
   }
 
   // ==========================================
-  // 7. 模態視窗與編輯處理（具備寫入錯誤警告機制）
+  // 8. 模態視窗與編輯處理（具備寫入錯誤警告機制）
   // ==========================================
   function openEditModal(dateStr, person, isSwapped, note) {
     activeEditDate = dateStr;
@@ -601,7 +670,7 @@
   }
 
   // ==========================================
-  // 8. 輪替規則設定：只從設定的那天之後開始生效
+  // 9. 輪替規則設定：只從設定的那天之後開始生效
   // ==========================================
   document.getElementById("configRotationBtn").onclick = () => {
     document.getElementById("rotationModal").style.display = "flex";
@@ -647,7 +716,7 @@
   }
 
   // ==========================================
-  // 9. 月份切換事件
+  // 10. 月份切換事件
   // ==========================================
   document.getElementById("prevMonthBtn").onclick = () => {
     if (currentYear === MIN_YEAR && currentMonth === MIN_MONTH) return;
@@ -669,7 +738,7 @@
   };
 
   // ==========================================
-  // 10. Firebase 即時同步監聽
+  // 11. Firebase 即時同步監聽
   // ==========================================
   scheduleRef.on("value", snapshot => {
     scheduleData = snapshot.val() || {};
@@ -689,12 +758,4 @@
 </script>
 </body>
 </html>
-
-
-Szuhua
-
-FAB1/ PIE2-1
-VisEra Technologies Company Ltd.
-No. 12, Dusing Rd. 1, Hsinchu Science Park, Hsinchu City 30078, Taiwan, R.O.C.
-Tel: +886-666-8788 #3846; 7836729
 
