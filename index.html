@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -25,7 +24,7 @@
   <!-- ================= 頂部極致微型導航列 (高度最小化) ================= -->
   <header class="bg-slate-900 text-white px-3 py-1 sticky-header shadow-sm flex flex-wrap justify-between items-center gap-2 border-b border-slate-800 flex-shrink-0">
     <div class="flex items-center space-x-2">
-      <div class="w-5 h-5 rounded bg-indigo-600 flex items-center justify-center text-white font-bold text-[11px] shadow-xs">
+      <div class="w-5 h-5 rounded bg-indigo-600 flex items-center justify-center text-white font-bold text-[10px] shadow-xs">
         管
       </div>
       <div>
@@ -71,36 +70,36 @@
     </div>
   </header>
 
-  <!-- ================= 主內容區域 (填滿高度，一屏裝下全月) ================= -->
-  <main class="flex-1 w-full max-w-7xl mx-auto p-1 md:p-2.5 flex flex-col min-h-0 overflow-y-auto">
+  <!-- ================= 主內容區域 (填滿剩餘高度，不產生外滾輪) ================= -->
+  <main class="flex-1 w-full max-w-7xl mx-auto p-1.5 md:p-2.5 flex flex-col min-h-0 overflow-y-auto">
 
     <!-- 視圖 1: 值班月曆 (極致緊湊，一屏裝下全月) -->
     <div id="view-calendar" class="flex-1 flex flex-col min-h-0 gap-1">
 
-      <!-- 控制列：年月跳轉 + 主管圖例名冊 (超微型高密度排版) -->
-      <div class="bg-white px-2 py-1 rounded border border-slate-200 shadow-2xs flex flex-wrap justify-between items-center gap-1.5 flex-shrink-0">
+      <!-- 控制列：年月跳轉 + 主管圖例名冊 (微型高密度排版) -->
+      <div class="bg-white px-2 py-0.5 rounded-lg border border-slate-200 shadow-2xs flex flex-wrap justify-between items-center gap-1.5 flex-shrink-0">
         <div class="flex items-center space-x-1">
-          <button onclick="changeMonth(-1)" class="w-5 h-5 border rounded hover:bg-slate-100 text-slate-600 text-xs font-bold transition flex items-center justify-center">◀</button>
+          <button onclick="changeMonth(-1)" class="w-5 h-5 border rounded hover:bg-slate-100 text-slate-600 text-[10px] font-bold transition flex items-center justify-center">◀</button>
           <span id="calendar-title" class="text-xs md:text-sm font-bold text-slate-800 min-w-[90px] text-center">-- 年 -- 月</span>
-          <button onclick="changeMonth(1)" class="w-5 h-5 border rounded hover:bg-slate-100 text-slate-600 text-xs font-bold transition flex items-center justify-center">▶</button>
-          <button onclick="jumpToToday()" class="px-1.5 py-0.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded text-[10px] font-semibold border border-indigo-200 transition">今天</button>
+          <button onclick="changeMonth(1)" class="w-5 h-5 border rounded hover:bg-slate-100 text-slate-600 text-[10px] font-bold transition flex items-center justify-center">▶</button>
+          <button onclick="jumpToToday()" class="px-1.5 py-0.2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded text-[10px] font-semibold border border-indigo-200 transition">今天</button>
         </div>
 
-        <!-- 主管代表字微型圖例 (只佔一行，字體極小化) -->
-        <div id="manager-legend-bar" class="flex items-center gap-1 overflow-x-auto py-0.5 max-w-md md:max-w-xl text-[10px]"></div>
+        <!-- 主管代表字微型圖例 (字體極小化，只佔 1 行) -->
+        <div id="manager-legend-bar" class="flex items-center gap-1 overflow-x-auto py-0.2 max-w-md md:max-w-xl text-[10px]"></div>
 
         <div class="flex items-center space-x-1">
-          <button onclick="openSwapModal()" class="px-2 py-0.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded text-[11px] font-semibold shadow-2xs transition flex items-center gap-1">
-            <i class="fa-solid fa-right-left text-[10px]"></i>
+          <button onclick="openSwapModal()" class="px-2 py-0.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded text-[10px] font-semibold shadow-2xs transition flex items-center gap-1">
+            <i class="fa-solid fa-right-left text-[9px]"></i>
             <span>調班申請</span>
           </button>
         </div>
       </div>
 
       <!-- 月曆主卡片 (撐滿高度，無外滾輪) -->
-      <div class="bg-white rounded border border-slate-200 flex-1 flex flex-col min-h-0 overflow-hidden shadow-2xs">
+      <div class="bg-white rounded-lg shadow-2xs border border-slate-200 flex-1 flex flex-col min-h-0 overflow-hidden">
         <!-- 星期標題 (緊縮高度) -->
-        <div class="grid grid-cols-7 text-center font-bold text-[11px] md:text-xs bg-slate-100/90 border-b border-slate-200 text-slate-600 py-0.5 flex-shrink-0">
+        <div class="grid grid-cols-7 text-center font-bold text-[10px] md:text-xs bg-slate-100/90 border-b border-slate-200 text-slate-600 py-0.5 flex-shrink-0">
           <div>週一</div>
           <div>週二</div>
           <div>週三</div>
@@ -115,11 +114,11 @@
     </div>
 
     <!-- 視圖 2: 主管名冊與代表字/顏色設定 -->
-    <div id="view-managers" class="hidden space-y-3 bg-white p-3 rounded-lg border border-slate-200 shadow-sm overflow-y-auto">
+    <div id="view-managers" class="hidden space-y-2 bg-white p-3 rounded-xl border border-slate-200 shadow-sm overflow-y-auto">
       <div class="flex justify-between items-center border-b pb-2">
         <div>
           <h2 class="text-xs md:text-sm font-bold text-slate-800">主管名冊設定 (代表國字與專屬顏色)</h2>
-          <p class="text-[11px] text-slate-500">自訂每位主管之代表國字與色彩標記，手機直向瀏覽一目了然。</p>
+          <p class="text-[10px] text-slate-500">自訂每位主管之代表國字與色彩標記，手機直向瀏覽一目了然。</p>
         </div>
         <button onclick="addNewManagerPrompt()" class="px-2 py-1 bg-indigo-600 hover:bg-indigo-700 text-white rounded text-xs font-semibold shadow-2xs transition">
           <i class="fa-solid fa-plus mr-1"></i>新增主管
@@ -143,42 +142,42 @@
     </div>
 
     <!-- 視圖 3: 輪替規則設定 -->
-    <div id="view-rules" class="hidden space-y-3 bg-white p-3 rounded-lg border border-slate-200 shadow-sm overflow-y-auto">
+    <div id="view-rules" class="hidden space-y-2 bg-white p-3 rounded-xl border border-slate-200 shadow-sm overflow-y-auto">
       <div class="border-b pb-2">
         <h2 class="text-xs md:text-sm font-bold text-slate-800">主管假日值班輪替規則設定</h2>
-        <p class="text-[11px] text-slate-500">依設定之「生效起始日」與「起始主管」，在週末與國定連假日自動循環排班。</p>
+        <p class="text-[10px] text-slate-500">若未來修改規則，生效起始日之前的排班會自動快照保留，絕不受新規則重算影響；且歷史日期依然可自由調班！</p>
       </div>
 
       <div class="max-w-md space-y-2.5 bg-slate-50 p-3 rounded-lg border border-slate-200 text-xs">
         <div>
           <label class="block font-semibold text-slate-700 mb-0.5">規則生效起始日期 *</label>
-          <input type="date" id="rule-start-date" class="w-full border rounded p-1.5 bg-white text-xs">
+          <input type="date" id="rule-start-date" class="w-full border rounded p-1 bg-white text-xs">
         </div>
         <div>
           <label class="block font-semibold text-slate-700 mb-0.5">起始值班主管 *</label>
-          <select id="rule-start-manager" class="w-full border rounded p-1.5 bg-white text-xs"></select>
+          <select id="rule-start-manager" class="w-full border rounded p-1 bg-white text-xs"></select>
         </div>
         <div>
           <label class="block font-semibold text-slate-700 mb-0.5">循環名單順序</label>
-          <div id="rule-order-list" class="space-y-1 p-1 bg-white border rounded max-h-52 overflow-y-auto"></div>
+          <div id="rule-order-list" class="space-y-1 p-1 bg-white border rounded max-h-48 overflow-y-auto"></div>
         </div>
-        <button onclick="saveRuleSettings()" class="w-full py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded font-semibold transition text-xs shadow-2xs">
-          儲存並重新計算輪替
+        <button onclick="saveRuleSettingsWithSnapshot()" class="w-full py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded font-semibold transition text-xs shadow-2xs">
+          儲存規則（自動固化生效日前之排班）
         </button>
       </div>
     </div>
 
     <!-- 視圖 4: 異動紀錄 -->
-    <div id="view-logs" class="hidden space-y-3 bg-white p-3 rounded-lg border border-slate-200 shadow-sm overflow-y-auto">
+    <div id="view-logs" class="hidden space-y-2 bg-white p-3 rounded-xl border border-slate-200 shadow-sm overflow-y-auto">
       <div class="border-b pb-2">
         <h2 class="text-xs md:text-sm font-bold text-slate-800">排班與換班稽核紀錄 (Audit Log)</h2>
-        <p class="text-[11px] text-slate-500">記錄調班操作之人員、時間與原因。</p>
-      </div>
+        <p class="text-[10px] text-slate-500">記錄調班操作之人員、時間與原因。</p>
+     </div>
       <div class="overflow-x-auto">
         <table class="w-full text-left text-xs">
           <thead class="bg-slate-100 text-slate-600 border-y border-slate-200">
             <tr>
-              <th class="py-1.5 px-3 w-32">異動時間</th>
+              <th class="py-1.5 px-3 w-36">異動時間</th>
               <th class="py-1.5 px-3 w-20">修改者</th>
               <th class="py-1.5 px-3">異動說明</th>
             </tr>
@@ -190,42 +189,42 @@
 
   </main>
 
-  <!-- ================= 換班 / 調班彈跳視窗 ================= -->
+  <!-- ================= 換班 / 調班彈跳視窗 (全期開放) ================= -->
   <div id="swapModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-3">
-    <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-3.5 space-y-2.5 border border-slate-100 text-xs">
+    <div class="bg-white rounded-xl shadow-xl max-w-md w-full p-3.5 space-y-2.5 border border-slate-100 text-xs">
       <div class="flex justify-between items-center border-b pb-2">
         <h3 class="font-bold text-xs md:text-sm text-slate-800 flex items-center gap-1.5">
           <i class="fa-solid fa-right-left text-indigo-600"></i>
-         <span>申請主管換班 / 調班</span>
+          <span>申請主管換班 / 調班</span>
         </h3>
         <button onclick="closeSwapModal()" class="text-slate-400 hover:text-slate-600 text-base">✕</button>
       </div>
 
       <div class="space-y-2">
         <div>
-          <label class="block font-semibold text-slate-700 mb-0.5">欲換班日期 (限假日或國定假日) *</label>
-          <input type="date" id="swap-date" onchange="onSwapDateSelected()" class="w-full border rounded p-1.5 bg-white text-xs">
+          <label class="block font-semibold text-slate-700 mb-0.5">欲換班日期 (限假日) *</label>
+          <input type="date" id="swap-date" onchange="onSwapDateSelected()" class="w-full border rounded p-1 bg-white text-xs">
         </div>
 
         <div class="grid grid-cols-2 gap-2">
           <div>
             <label class="block font-semibold text-slate-700 mb-0.5">原定值班主管</label>
-            <input type="text" id="swap-original-mgr" readonly class="w-full border rounded p-1.5 bg-slate-100 text-slate-600 font-bold">
+            <input type="text" id="swap-original-mgr" readonly class="w-full border rounded p-1 bg-slate-100 text-slate-600 font-bold">
           </div>
           <div>
             <label class="block font-semibold text-slate-700 mb-0.5">替換主管 *</label>
-            <select id="swap-target-mgr" class="w-full border rounded p-1.5 bg-white text-xs font-semibold"></select>
+            <select id="swap-target-mgr" class="w-full border rounded p-1 bg-white text-xs font-semibold"></select>
           </div>
         </div>
 
         <div>
           <label class="block font-semibold text-slate-700 mb-0.5">修改人姓名 (操作者) *</label>
-          <select id="swap-editor" class="w-full border rounded p-1.5 bg-white text-xs font-semibold"></select>
+          <select id="swap-editor" class="w-full border rounded p-1 bg-white text-xs font-semibold"></select>
         </div>
 
         <div>
           <label class="block font-semibold text-slate-700 mb-0.5">換班原因備註</label>
-          <input type="text" id="swap-reason" placeholder="如：主管出差換班..." class="w-full border rounded p-1.5 text-xs">
+          <input type="text" id="swap-reason" placeholder="如：特休調班..." class="w-full border rounded p-1 text-xs">
         </div>
       </div>
 
@@ -238,7 +237,7 @@
 
   <!-- ================= JavaScript 核心運算 ================= -->
   <script>
-    // 1. Firebase 金鑰設定 (已整合最新專屬金鑰)
+    // 1. 最新專屬 Firebase 配置
     const firebaseConfig = {
       apiKey: "AIzaSyBjd7pTM-ARE1TcIi2W-ZNlQXabCEr9mzI",
       authDomain: "f-supervisor-duty-roster.firebaseapp.com",
@@ -266,7 +265,7 @@
       { name: '金黃琥珀 (Yellow)', bg: 'bg-yellow-600', text: 'text-white' }
     ];
 
-    // 3. 現行名冊完整配置（依現行表順序）
+    // 3. 現行名冊完整配置
     const INITIAL_MANAGERS = [
       { id: 'm1', name: '鄧世傑', char: '傑', colorIdx: 6 },
       { id: 'm2', name: '曾鈺明', char: '明', colorIdx: 2 },
@@ -280,80 +279,65 @@
       { id: 'm10', name: '周哲維', char: '維', colorIdx: 9 }
     ];
 
-    // 4. 輪替規則：自 2026/11/21 開始，張志清為首位
+    // 4. 輪替規則：自 2026-11-21 起，張志清為首位
     const INITIAL_RULE = {
       startDate: '2026-11-21',
       startManagerId: 'm6', // 張志清
       orderIds: ['m6', 'm7', 'm8', 'm9', 'm1', 'm2', 'm3', 'm4', 'm5', 'm10']
     };
 
-    // 5. 台灣政府公告國定假日與連續假期補假清單（完整包含春節連續假 2/9~2/12、2/16~2/20 等）
+    // 11/21 前之 11 月現行歷史資料
+    const INITIAL_OVERRIDES = {
+      '2026-11-01': 'm2', // 曾鈺明
+      '2026-11-07': 'm3', // 黃保桐
+      '2026-11-08': 'm4', // 林和泰
+      '2026-11-14': 'm5', // 吳振溢
+      '2026-11-15': 'm10' // 周哲維
+    };
+
+    // 完整台灣國定假日清單 (含春節 2/9~2/12、2/16~2/20 及所有官方補假)
     const TAIWAN_HOLIDAYS = {
-      // 2025 年重點假期
-      '2025-01-01': '元旦',
-      '2025-01-25': '春節', '2025-01-26': '春節', '2025-01-27': '小年夜',
-      '2025-01-28': '除夕', '2025-01-29': '初一', '2025-01-30': '初二',
-      '2025-01-31': '初三', '2025-02-01': '初四', '2025-02-02': '初五',
-      '2025-02-28': '228', '2025-04-03': '清明補', '2025-04-04': '兒童節',
-      '2025-05-01': '勞動節', '2025-05-30': '端午補', '2025-05-31': '端午',
-      '2025-10-06': '中秋', '2025-10-10': '國慶',
-
-      // 2026 年行政院正式核准 9 大連假（全台灣放假日 120 天，含 2/15~2/23 連續長假與 12/25 行憲紀念日）
+      // 2026 年
       '2026-01-01': '元旦',
-      '2026-02-15': '小年夜',
+      '2026-02-15': '小年補',
       '2026-02-16': '除夕',
-      '2026-02-17': '春節初一',
-      '2026-02-18': '春節初二',
-      '2026-02-19': '春節初三',
-      '2026-02-20': '春節補假',
-      '2026-02-21': '春節週末',
-      '2026-02-22': '春節週末',
-      '2026-02-23': '春節連假',
-      '2026-02-27': '228補假',
-      '2026-02-28': '228和平日',
-      '2026-04-03': '清明補假',
-      '2026-04-04': '兒童節',
-      '2026-04-05': '清明節',
-      '2026-04-06': '清明補假',
-      '2026-04-30': '勞動補假',
-      '2026-05-01': '勞動節',
-      '2026-06-19': '端午連假',
-      '2026-09-25': '中秋連假',
+      '2026-02-17': '春節',
+      '2026-02-18': '初二',
+      '2026-02-19': '初三',
+      '2026-02-20': '初四補',
+      '2026-02-27': '228補',
+      '2026-04-03': '清明補',
+      '2026-04-06': '兒童補',
+      '2026-04-30': '勞動補',
+      '2026-06-19': '端午',
+      '2026-09-25': '中秋',
       '2026-09-28': '教師節',
-      '2026-10-09': '國慶補假',
-      '2026-10-10': '國慶日',
-      '2026-10-25': '臺灣光復節',
-      '2026-10-26': '光復補假',
-      '2026-12-25': '行憲紀念日',
+      '2026-10-09': '國慶補',
+      '2026-10-26': '光復補',
+      '2026-12-25': '行憲',
 
-      // 2027 年農曆春節長假（含 2/5~2/14 連續放假，涵蓋 2/9~2/12 平日）與連假補假
+      // 2027 年 (完整包含 2/5~2/12 春節長假與平日放假)
       '2027-01-01': '元旦',
-      '2027-02-05': '除夕連休',
-      '2027-02-06': '除夕連休',
-      '2027-02-07': '小年夜',
-      '2027-02-08': '春節除夕',
-      '2027-02-09': '春節初一',
-      '2027-02-10': '春節初二',
-      '2027-02-11': '春節初三',
-      '2027-02-12': '春節初四',
-      '2027-02-13': '春節週末',
-      '2027-02-14': '春節週末',
-      '2027-02-26': '228補假',
-      '2027-02-28': '228紀念日',
-      '2027-04-02': '清明補假',
-      '2027-04-05': '清明連假',
-      '2027-04-30': '勞動補假',
-      '2027-05-01': '勞動節',
-      '2027-06-09': '端午節',
-      '2027-09-15': '中秋節',
-      '2027-10-10': '國慶日',
-      '2027-10-11': '國慶補假',
-      '2027-12-25': '行憲紀念日'
+      '2027-02-05': '除夕',
+      '2027-02-08': '初二',
+      '2027-02-09': '初三',
+      '2027-02-10': '初四',
+      '2027-02-11': '初五補',
+      '2027-02-12': '初六補',
+      '2027-02-26': '228補',
+      '2027-04-02': '清明補',
+      '2027-04-05': '兒童補',
+      '2027-04-30': '勞動補',
+      '2027-06-11': '端午',
+      '2027-09-17': '中秋',
+      '2027-10-08': '國慶補',
+      '2027-10-25': '光復節',
+      '2027-12-24': '行憲補'
     };
 
     let managers = JSON.parse(localStorage.getItem('exec_managers')) || INITIAL_MANAGERS;
     let rule = JSON.parse(localStorage.getItem('exec_rule')) || INITIAL_RULE;
-    let manualOverrides = JSON.parse(localStorage.getItem('exec_overrides')) || {};
+    let manualOverrides = JSON.parse(localStorage.getItem('exec_overrides')) || INITIAL_OVERRIDES;
     let auditLogs = JSON.parse(localStorage.getItem('exec_logs')) || [];
 
     const today = new Date();
@@ -383,7 +367,7 @@
             localStorage.setItem('exec_overrides', JSON.stringify(manualOverrides));
             localStorage.setItem('exec_logs', JSON.stringify(auditLogs));
 
-            renderCalendar();
+           renderCalendar();
             renderManagersView();
             renderRuleView();
             renderLogsView();
@@ -421,7 +405,6 @@
       renderLogsView();
     }
 
-    // 判斷是否為放假日（週六、週日、國定假日與連續假期補假）
     function isHoliday(dateStr) {
       const d = new Date(dateStr);
       const dayOfWeek = d.getDay();
@@ -429,12 +412,23 @@
       return !!TAIWAN_HOLIDAYS[dateStr];
     }
 
-    // 獲取當天主管排班
+    // 核心排班推算：2026/10/31及之前完全不排班；支援歷史快照固化與自由調班
     function getDutyManager(dateStr) {
       if (!isHoliday(dateStr)) return null;
 
+      // 核心需求：2026 年 10 月及之前完全不排班
+      if (dateStr <= '2026-10-31') {
+        return null;
+      }
+
+      // 手動換班優先
       if (manualOverrides[dateStr]) {
         return managers.find(m => m.id === manualOverrides[dateStr]) || null;
+      }
+
+      // 若在目前有效規則的起算日之前，不作推算
+      if (dateStr < rule.startDate) {
+        return null;
       }
 
       const count = countHolidaysBetween(rule.startDate, dateStr);
@@ -502,7 +496,7 @@
         const btn = document.getElementById(id);
         if (v === view) {
           btn.className = "px-2 py-0.5 rounded bg-indigo-600 text-white font-semibold transition flex items-center gap-1 shadow-xs";
-       } else {
+        } else {
           btn.className = "px-2 py-0.5 rounded text-slate-300 hover:bg-slate-800 hover:text-white transition flex items-center gap-1";
         }
       });
@@ -544,34 +538,33 @@
         const isOverridden = manualOverrides[dateKey];
 
         const cell = document.createElement('div');
-        // 高度縮減，手機與桌機均能自適應壓縮
-        cell.className = `p-1 flex flex-col justify-between border-b border-slate-200 transition min-h-[46px] md:min-h-[56px] ${
-          isHol ? (isSatSun ? 'bg-rose-50/30' : 'bg-amber-50/30') : 'bg-white'
+        cell.className = `p-1 md:p-1.5 flex flex-col justify-between border-b border-slate-200 transition min-h-[46px] md:min-h-[56px] ${
+          isHol ? (isSatSun ? 'bg-rose-50/30' : 'bg-amber-50/25') : 'bg-white'
         } hover:bg-indigo-50/40 group relative`;
 
-        // 頂部日期
+        // 頂部日期與調班按鈕 (全期開放調班)
         let headerHtml = `
           <div class="flex justify-between items-center leading-none">
             <div class="flex items-center gap-1">
               <span class="text-[11px] md:text-xs font-bold ${isToday ? 'w-4 h-4 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px]' : (isHol ? 'text-rose-600' : 'text-slate-700')}">${d}</span>
-              ${holName ? `<span class="text-[9px] px-1 rounded bg-rose-100 text-rose-700 font-medium scale-90 origin-left truncate max-w-[70px]">${holName}</span>` : ''}
+              ${holName ? `<span class="text-[9px] px-1 rounded bg-rose-100 text-rose-700 font-medium scale-90 origin-left">${holName}</span>` : ''}
             </div>
-            ${isHol ? `
+            ${isHol && dateKey > '2026-10-31' ? `
               <button onclick="openSwapModal('${dateKey}')" class="opacity-0 group-hover:opacity-100 text-[9px] px-1 py-0.2 rounded bg-indigo-50 text-indigo-600 hover:bg-indigo-100 font-medium transition" title="調班">
-               調
+                調
               </button>
             ` : ''}
           </div>
         `;
 
-        // 主管代表國字 (精巧徽章，不浪費任何高度)
+        // 主管代表國字 (精巧徽章，不佔用高度)
         let bodyHtml = '';
         if (isHol && dutyMgr) {
           const colorObj = COLOR_PALETTE[dutyMgr.colorIdx || 0] || COLOR_PALETTE[0];
           bodyHtml = `
-            <div class="mt-auto py-0.5 px-1 rounded bg-white/95 border border-slate-200 shadow-2xs flex items-center justify-between gap-1">
+            <div class="mt-auto py-0.2 px-1 rounded bg-white/90 border border-slate-200 shadow-2xs flex items-center justify-between gap-1">
               <div class="flex items-center gap-1 min-w-0">
-                <span class="w-4 h-4 md:w-5 md:h-5 rounded ${colorObj.bg} ${colorObj.text} font-bold text-[9px] md:text-[11px] flex items-center justify-center flex-shrink-0 shadow-2xs">
+                <span class="w-4 h-4 md:w-4.5 md:h-4.5 rounded ${colorObj.bg} ${colorObj.text} font-bold text-[9px] md:text-[10px] flex items-center justify-center flex-shrink-0 shadow-2xs">
                   ${dutyMgr.char || dutyMgr.name.slice(-1)}
                 </span>
                 <span class="text-[10px] md:text-[11px] font-bold text-slate-800 truncate leading-tight">${dutyMgr.name}</span>
@@ -579,7 +572,7 @@
               ${isOverridden ? '<span class="text-[8px] px-0.5 rounded bg-indigo-100 text-indigo-700 font-semibold flex-shrink-0">換</span>' : ''}
             </div>
           `;
-        } else if (!isHol) {
+        } else if (!isHol || dateKey <= '2026-10-31') {
           bodyHtml = `
             <div class="mt-auto text-center text-slate-200 text-[10px] font-light select-none">
               —
@@ -609,7 +602,7 @@
       });
     }
 
-    function changeMonth(delta) {
+   function changeMonth(delta) {
       calMonth += delta;
       if (calMonth > 12) { calMonth = 1; calYear++; }
       else if (calMonth < 1) { calMonth = 12; calYear--; }
@@ -639,7 +632,7 @@
             </span>
           </td>
           <td class="py-1.5 px-3">
-            <input type="text" value="${mgr.name}" onchange="updateManagerName('${mgr.id}', this.value)" class="border rounded px-2 py-0.5 font-semibold text-slate-800 text-xs">
+            <input type="text" value="${mgr.name}" onchange="updateManagerName('${mgr.id}', this.value)" class="border rounded px-1.5 py-0.5 font-semibold text-slate-800 text-xs">
           </td>
           <td class="py-1.5 px-3 text-center">
             <input type="text" maxlength="1" value="${mgr.char || mgr.name.slice(-1)}" onchange="updateManagerChar('${mgr.id}', this.value)" class="w-7 text-center border rounded py-0.5 font-bold text-xs bg-slate-50">
@@ -716,7 +709,7 @@
       document.getElementById('rule-start-date').value = rule.startDate;
 
       const selectMgr = document.getElementById('rule-start-manager');
-     selectMgr.innerHTML = '';
+      selectMgr.innerHTML = '';
       managers.forEach(m => {
         const opt = document.createElement('option');
         opt.value = m.id;
@@ -738,7 +731,7 @@
         row.innerHTML = `
           <div class="flex items-center gap-1.5">
             <span class="w-3 text-[10px] font-bold text-slate-400 text-center">${idx + 1}</span>
-            <span class="w-4 h-4 rounded ${color.bg} ${color.text} text-[10px] font-bold flex items-center justify-center">${m.char}</span>
+            <span class="w-3.5 h-3.5 rounded ${color.bg} ${color.text} text-[9px] font-bold flex items-center justify-center">${m.char}</span>
             <span class="font-semibold text-slate-700">${m.name}</span>
           </div>
           <div class="flex items-center gap-1 text-slate-400 text-[10px]">
@@ -758,14 +751,47 @@
       order[idx] = order[target];
       order[target] = temp;
       rule.orderIds = order;
-      renderRuleView();
+     renderRuleView();
     }
 
-    function saveRuleSettings() {
-      rule.startDate = document.getElementById('rule-start-date').value;
-      rule.startManagerId = document.getElementById('rule-start-manager').value;
+    // 儲存規則時自動固化生效日前的排班現狀（快照保護，不影響歷史）
+    function saveRuleSettingsWithSnapshot() {
+      const newStartDate = document.getElementById('rule-start-date').value;
+      const newStartManagerId = document.getElementById('rule-start-manager').value;
+
+      if (!newStartDate) {
+        alert('請選擇規則生效起始日！');
+        return;
+      }
+
+      // 將新生效日以前已排定的現狀固化保存至 manualOverrides（快照）
+      if (newStartDate > rule.startDate) {
+        let cur = new Date(rule.startDate);
+        const end = new Date(newStartDate);
+
+        while (cur < end) {
+          const dateStr = formatDate(cur);
+          if (isHoliday(dateStr) && dateStr > '2026-10-31') {
+            const currentDuty = getDutyManager(dateStr);
+            if (currentDuty && !manualOverrides[dateStr]) {
+              manualOverrides[dateStr] = currentDuty.id;
+            }
+          }
+          cur.setDate(cur.getDate() + 1);
+        }
+      }
+
+      rule.startDate = newStartDate;
+      rule.startManagerId = newStartManagerId;
+
+      auditLogs.unshift({
+        time: new Date().toLocaleString('zh-TW', { hour12: false }),
+        editor: '系統管理員',
+        action: `【更新規則】自 ${newStartDate} 起套用新排班順序；生效日以前之歷史排班已自動固化保護。`
+      });
+
       saveState();
-      alert('輪替規則已成功更新！');
+      alert(`新輪替規則已生效！${newStartDate} 以前之歷史排班完全維持現況，絕不受新規則重算影響。`);
     }
 
     function openSwapModal(defaultDate = null) {
@@ -804,6 +830,10 @@
         document.getElementById('swap-original-mgr').value = '平日無值勤（請選假日）';
         return;
       }
+      if (dateVal <= '2026-10-31') {
+        document.getElementById('swap-original-mgr').value = '2026/10以前無排班';
+        return;
+      }
       const curMgr = getDutyManager(dateVal);
       document.getElementById('swap-original-mgr').value = curMgr ? `${curMgr.name} (${curMgr.char})` : '未排定';
     }
@@ -816,6 +846,10 @@
 
       if (!isHoliday(dateVal)) {
         alert('選取之日期為平日，平日無主管值班需求！');
+        return;
+      }
+      if (dateVal <= '2026-10-31') {
+        alert('2026 年 10 月以前無排班，無法申請調班！');
         return;
       }
 
@@ -833,7 +867,7 @@
       const logEntry = {
         time: new Date().toLocaleString('zh-TW', { hour12: false }),
         editor: editorName,
-        action: `【換班】${dateVal} 由 [${origMgr ? origMgr.name : '未定'}] 更換為 [${targetMgr.name}]。原因：${reason}`
+        action: `【調班】${dateVal} 由 [${origMgr ? origMgr.name : '未定'}] 更換為 [${targetMgr.name}]。原因：${reason}`
       };
       auditLogs.unshift(logEntry);
 
@@ -846,7 +880,7 @@
       const tbody = document.getElementById('logs-table-body');
       tbody.innerHTML = '';
       if (auditLogs.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="3" class="text-center py-1 text-slate-400">目前尚無異動紀錄</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="3" class="text-center py-4 text-slate-400">目前尚無異動紀錄</td></tr>`;
         return;
       }
       auditLogs.forEach(log => {
@@ -891,7 +925,7 @@
     }
 
     window.onload = () => {
-     initFirebase();
+      initFirebase();
       renderCalendar();
       renderManagersView();
       renderRuleView();
@@ -900,3 +934,12 @@
   </script>
 </body>
 </html>
+
+
+Szuhua
+
+FAB1/ PIE2-1
+VisEra Technologies Company Ltd.
+No. 12, Dusing Rd. 1, Hsinchu Science Park, Hsinchu City 30078, Taiwan, R.O.C.
+Tel: +886-666-8788 #3846; 7836729
+
